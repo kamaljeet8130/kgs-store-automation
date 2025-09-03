@@ -10,7 +10,7 @@ import java.time.Duration;
 public class BannerSection {
     private  WebDriver driver ;
 
-    private final By bannerSlides = By.xpath("(//div[contains(@class,'mySwiper')])[3]//div[contains(@class,'swiper-slide')]");
+    private final By bannerSlides = By.xpath("(//div[contains(@class,'mySwiper')])[1]//div[contains(@class,'swiper-slide')]");
     private final By activeBanner = By.xpath("//div[contains(@class,'swiper-slide-active')]");
     private final By bannerImages = By.xpath("//div[contains(@class,'swiper-slide')]//img");
     private final By bannerLinks = By.xpath("//div[contains(@class,'swiper-slide')]//a");
