@@ -16,19 +16,15 @@ import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
 
-public class LoginTest {
+public class LoginTest extends BaseTest{
     @Test
     public void testUserLogin() throws InterruptedException {
-        WebDriver driver = new ChromeDriver();
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
-//        ProductListingSection productListingSection = new ProductListingSection(driver);
-//        for (String elements : productListingSection.getProductName()) {
-//            System.out.println(elements);
+        ProductListingSection productListingSection = new ProductListingSection(driver);
+        for (String elements : productListingSection.getProductName()) {
+            System.out.println(elements);
 
-//        }
-        driver.get("https://store.khanglobalstudies.com/shop");
-        List<WebElement> elements = driver.findElements(By.xpath("//div[contains(@class,'card-onhover')]"));
-        System.out.println(elements.size());
+        }
 
     }
 }

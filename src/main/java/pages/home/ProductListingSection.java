@@ -8,18 +8,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ProductListingSection {
-  private WebDriver driver ;
+    private WebDriver driver;
 
-  public ProductListingSection(WebDriver driver){
-      this.driver = driver;
-  }
-  private By productName = By.xpath("//div[contains(@class,'w-full')]/div[contains(@class,'relative')]//h1");
+    public ProductListingSection(WebDriver driver) {
+        this.driver = driver;
+    }
 
-  public List<String> getProductName(){
-      List<String> nameList = new ArrayList<>();
-      for(WebElement element : driver.findElements(productName)){
-          nameList.add(element.getText());
-      }
-      return nameList;
-  }
+    private final By productName = By.xpath("//div[contains(@data-testid,'product-section')]//h1");
+
+    public List<String> getProductName() {
+        List<String> nameList = new ArrayList<>();
+        for (WebElement element : driver.findElements(productName)) {
+            nameList.add(element.getText());
+        }
+        return nameList;
+    }
 }
