@@ -12,10 +12,10 @@ public class BaseTest {
 
     @BeforeMethod
     public void setUp(){
-        WebDriverManager.chromedriver().setup();
+        WebDriverManager.chromedriver().browserVersion("139").setup();
         driver = new ChromeDriver();
         driver.manage().window().maximize();
-        driver.get("https://store.khanglobalstudies.com");
+        driver.get("https://store.kgs.ink");
     }
 
     @AfterMethod
