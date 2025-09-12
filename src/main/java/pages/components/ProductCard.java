@@ -9,15 +9,21 @@ import java.util.List;
 
 public class ProductCard {
    private WebElement rootElement;
+   private WebDriver driver;
+   private By rootLocator;
 
-   public ProductCard(WebElement element){
+   public ProductCard(WebElement rootElement){
        this.rootElement =rootElement;
+   }
+   public ProductCard(WebDriver driver,By rootLocator){
+       this.driver=driver;
+       this.rootLocator = rootLocator;
    }
    private By productName =By.xpath(".//div[contains(@data-testid,'book-title')]");
    private By productImage = By.xpath(".//div[contains(@data-testid,'product-image')]/img");
    private By productRating = By.xpath(".//div[contains(@data-testid,'book-rating')]");
    private By oldPrice = By.xpath(".//p[cotains(@data-testid,'actualPrice')]");
-   private By discountedPrice = By.xpath(".//p[contains(@data-testid,'discounted-price')]");
+   private By currentPrice = By.xpath(".//p[contains(@data-testid,'discounted-price')]");
    private By savedPrice = By.xpath(".//p[contains(@data-testid,'save-price')]");
    private By wishlistIcon = By.xpath(".//div[contains(@data-testid,'wishlist-icon')]");
    private By addToCartIcon = By.xpath(".//div[contains(@data-testid,'add-to-cart')]");
@@ -36,9 +42,9 @@ public class ProductCard {
            return "";
        }
    }
-   public String getDiscountedPrice(){
+   public String getCurrentPrice(){
        try{
-           return rootElement.findElement(discountedPrice).getText().trim();
+           return rootElement.findElement(currentPrice).getText().trim();
        }catch (Exception e){
            return "";
        }
@@ -67,6 +73,15 @@ public class ProductCard {
    }
    public void clickViewDetailsButton(){
        rootElement.findElement(viewDetailButton).click();
+   }
+   @Override
+    public String toString(){
+       return "productCard{" +
+               "name=" + getName() + "\"" +
+               ", price= " + getCurrentPrice() + "\"" +
+               ", old price= " + getOldPrice()+ "\"" +
+               ", discout=" + getSavedPrice()+ "\"" +
+               "}";
    }
 
 
