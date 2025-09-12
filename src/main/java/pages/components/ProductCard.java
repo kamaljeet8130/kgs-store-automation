@@ -11,7 +11,6 @@ public class ProductCard {
    private WebElement rootElement;
    private WebDriver driver;
    private By rootLocator;
-
    public ProductCard(WebElement rootElement){
        this.rootElement =rootElement;
    }
