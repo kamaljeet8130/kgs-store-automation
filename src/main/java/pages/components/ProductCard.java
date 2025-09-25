@@ -21,7 +21,7 @@ public class ProductCard {
    private By productName =By.xpath(".//div[contains(@data-testid,'book-title')]");
    private By productImage = By.xpath(".//div[contains(@data-testid,'product-image')]/img");
    private By productRating = By.xpath(".//div[contains(@data-testid,'book-rating')]");
-   private By oldPrice = By.xpath(".//p[cotains(@data-testid,'actualPrice')]");
+   private By oldPrice = By.xpath(".//p[contains(@data-testid,'actual-price')]");
    private By currentPrice = By.xpath(".//p[contains(@data-testid,'discounted-price')]");
    private By savedPrice = By.xpath(".//p[contains(@data-testid,'save-price')]");
    private By wishlistIcon = By.xpath(".//div[contains(@data-testid,'wishlist-icon')]");
