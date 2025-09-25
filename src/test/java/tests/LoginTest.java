@@ -24,19 +24,15 @@ import java.util.List;
 public class LoginTest extends BaseTest{
     @Test
     public void testUserLogin() throws InterruptedException {
-        WebElement element = driver.findElement(By.xpath(" //div[contains(@data-testid,'product-section')]//h1[normalize-space()='Trending Products']/ancestor::div[contains(@data-testid,'product-section')]"));
-        JavascriptExecutor js = (JavascriptExecutor) driver;
-        js.executeScript("arguments[0].scrollIntoView(true);",element);
-
-        WebDriverWait wait = new WebDriverWait(driver,Duration.ofSeconds(10));
-        wait.until(ExpectedConditions.visibilityOf(element));
-
         ProductListingSection productListingSection = new ProductListingSection(driver);
-       List<ProductCard> trendingProducts =
-        productListingSection.getProductCards("Trending Products");
-        System.out.println(trendingProducts.size());
-        for (ProductCard card : trendingProducts){
-            System.out.println(card.toString());
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+        List<String> titles = productListingSection.getAllSectionTitles();
+
+        if(!titles.isEmpty()){
+            List<ProductCard> cards = productListingSection.getProductCards(titles.get(0));
+            for (ProductCard card: cards){
+                System.out.println(card.getName());
+            }
         }
     }
 }
