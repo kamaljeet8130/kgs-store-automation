@@ -22,7 +22,7 @@ public class ProductListingSection {
     private By allSections = By.xpath("//div[contains(@data-testid,'product-section')]");
     private By sectionTitles = By.xpath(".//h1");
     private By productCards = By.xpath(".//div[contains(@class,'swiper-slide')]");
-    private By viewAllLink = By.xpath("//div[contains(@data-testid,'product-section')]//div/a[text()='View All']");
+    private By viewAllLink = By.xpath(".//div/a[text()='View All']");
 
     public List<String> getAllSectionTitles() {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
@@ -42,7 +42,17 @@ public class ProductListingSection {
     }
 
     private WebElement getSectionByTitle(String sectionTitle) {
+        WebDriverWait wait = new WebDriverWait(driver,Duration.ofSeconds(10));
         String path = "//h1[normalize-space()='" + sectionTitle + "']/ancestor::div[contains(@data-testid,'product-section')]";
+        return wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(path)));
+//        return driver.findElement(By.xpath(path));
+    }
+    private  WebElement getLeftArrow(String sectionTitle){
+        String path = "(//h1[normalize-space()='" + sectionTitle + "']/ancestor::div[contains(@data-testid,'product-section')]//*[name()='svg' and contains(@class,'svgArrowColor')])[1]";
+        return driver.findElement(By.xpath(path));
+    }
+    private  WebElement getRightArrow(String sectionTitle){
+        String path = "(//h1[normalize-space()='" + sectionTitle + "']/ancestor::div[contains(@data-testid,'product-section')]//*[name()='svg' and contains(@class,'svgArrowColor')])[2]";
         return driver.findElement(By.xpath(path));
     }
 
@@ -55,5 +65,28 @@ public class ProductListingSection {
         }
         return cards;
     }
+
+    public void clickOnViewAll(String sectionTitle){
+        WebElement section = getSectionByTitle(sectionTitle);
+        section.findElement(viewAllLink).click();
+    }
+    public int getProductCount(String sectionTitle){
+        return getProductCards(sectionTitle).size();
+    }
+    public ProductCard getFirstProductCard(String sectionTitle){
+        List<ProductCard> cards = getProductCards(sectionTitle);
+        return cards.isEmpty()?null:cards.getFirst();
+    }
+
+    public void clickOnLeftArrow(String sectionTitle){
+        getLeftArrow(sectionTitle).click();
+    }
+
+    public void clickOnRightArrow(String sectionTitle){
+        getRightArrow(sectionTitle).click();
+    }
+
+
+
 
 }
