@@ -29,9 +29,12 @@ public class LoginTest extends BaseTest{
         List<String> titles = productListingSection.getAllSectionTitles();
 
         if(!titles.isEmpty()){
-            List<ProductCard> cards = productListingSection.getProductCards(titles.get(0));
+            List<ProductCard> cards = productListingSection.getProductCards(titles.get(1));
             for (ProductCard card: cards){
                 System.out.println(card.getName());
+
+                productListingSection.clickOnRightArrow(titles.get(1));
+
             }
         }
     }
