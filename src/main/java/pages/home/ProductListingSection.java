@@ -3,7 +3,6 @@ package pages.home;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.devtools.v137.network.model.DataReceived;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import pages.components.ProductCard;
@@ -21,7 +20,7 @@ public class ProductListingSection {
 
     private By allSections = By.xpath("//div[contains(@data-testid,'product-section')]");
     private By sectionTitles = By.xpath(".//h1");
-    private By productCards = By.xpath(".//div[contains(@class,'swiper-slide')]");
+    private By productCards = By.xpath(".//div[@data-testid='product-card']");
     private By viewAllLink = By.xpath(".//div/a[text()='View All']");
 
     public List<String> getAllSectionTitles() {
@@ -85,8 +84,4 @@ public class ProductListingSection {
     public void clickOnRightArrow(String sectionTitle){
         getRightArrow(sectionTitle).click();
     }
-
-
-
-
 }
