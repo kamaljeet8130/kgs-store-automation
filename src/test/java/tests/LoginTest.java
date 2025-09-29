@@ -32,7 +32,6 @@ public class LoginTest extends BaseTest{
             List<ProductCard> cards = productListingSection.getProductCards(titles.get(1));
             for (ProductCard card: cards){
                 System.out.println(card.getName());
-
                 productListingSection.clickOnRightArrow(titles.get(1));
 
             }
