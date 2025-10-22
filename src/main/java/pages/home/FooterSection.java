@@ -65,7 +65,7 @@ public class FooterSection {
     public void goToCurrentAffairs(){
         getFooterSection().findElement(dailyCurrentAffairs).click();
     }
-    public String getCompanyLoaction(){
+    public String getCompanyLocation(){
         return getFooterSection().findElement(location).getText();
     }
     public String getEmail(){
