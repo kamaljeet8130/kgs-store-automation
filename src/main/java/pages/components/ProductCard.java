@@ -79,7 +79,7 @@ public class ProductCard {
                "name=" + getName() + "\"" +
                ", price= " + getCurrentPrice() + "\"" +
                ", old price= " + getOldPrice()+ "\"" +
-               ", discout=" + getSavedPrice()+ "\"" +
+               ", discount=" + getSavedPrice()+ "\"" +
                "}";
    }
 
