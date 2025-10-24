@@ -4,12 +4,10 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
-import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-
-import java.security.PublicKey;
 import java.time.Duration;
+import java.util.List;
 
 public class ProductDetailPage {
     private WebDriver driver;
@@ -31,6 +29,8 @@ public class ProductDetailPage {
     private By buyNowButton = By.xpath("//div[@data-testid='cart-buttons']//button[contains(., 'Buy Now')]");
     private By addToCartButton = By.xpath("//div[@data-testid='cart-buttons']//button[contains(., 'Add to Cart')]");
     private By outOfStockButton = By.xpath("//button[contains(., 'Out of Stock')]");
+    private By socialMediaIcons = By.xpath("//div[@data-testid='social-media-icons']//button");
+
 
 
     public ProductDetailPage(WebDriver driver){
@@ -84,7 +84,15 @@ public class ProductDetailPage {
     public boolean isOutOfStockButtonVisible(){
         return !driver.findElements(outOfStockButton).isEmpty();
     }
-
-
+    public List<WebElement> getSocialMediaIcons(){
+       return driver.findElements(socialMediaIcons);
+    }
+    public boolean areSocialMediaIconsVisible(){
+        List<WebElement> icons = driver.findElements(socialMediaIcons);
+        return !icons.isEmpty() && icons.stream().allMatch(WebElement::isDisplayed);
+    }
+    public int getSocialMediaIconCount(){
+        return driver.findElements(socialMediaIcons).size();
+    }
 
 }
