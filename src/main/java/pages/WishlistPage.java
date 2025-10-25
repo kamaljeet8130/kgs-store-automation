@@ -35,7 +35,7 @@ public class WishlistPage {
         List<WebElement> productElements = driver.findElements(wishlistProductCard);
         List<ProductCard> cards = new ArrayList<>();
         for(WebElement element: productElements){
-            cards.add(new ProductCard(element));
+            cards.add(new ProductCard(driver,element));
         }
         return cards;
     }
@@ -46,7 +46,4 @@ public class WishlistPage {
         List<ProductCard> cards = getAllWishlistProductCard();
         return cards.isEmpty()?null:cards.getFirst();
     }
-
-
-
 }
