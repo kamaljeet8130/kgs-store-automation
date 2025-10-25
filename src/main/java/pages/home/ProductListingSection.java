@@ -12,10 +12,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ProductListingSection {
-    private WebDriver driver;
+    private final WebDriver driver;
+    private WebDriverWait wait;
 
     public ProductListingSection(WebDriver driver) {
         this.driver = driver;
+        this.wait = new WebDriverWait(driver,Duration.ofSeconds(10));
     }
 
     private By allSections = By.xpath("//div[contains(@data-testid,'product-section')]");
@@ -24,7 +26,6 @@ public class ProductListingSection {
     private By viewAllLink = By.xpath(".//div/a[text()='View All']");
 
     public List<String> getAllSectionTitles() {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         List<WebElement> sections = driver.findElements(allSections);
         List<String> titles = new ArrayList<>();
         for (WebElement section : sections) {
@@ -60,7 +61,7 @@ public class ProductListingSection {
         List<WebElement> cardElements = section.findElements(productCards);
         List<ProductCard> cards = new ArrayList<>();
         for (WebElement element : cardElements) {
-            cards.add(new ProductCard(element));
+            cards.add(new ProductCard(driver,element));
         }
         return cards;
     }
