@@ -3,6 +3,7 @@ package pages.components;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 
 import java.lang.reflect.Executable;
 import java.util.List;
@@ -10,13 +11,9 @@ import java.util.List;
 public class ProductCard {
    private WebElement rootElement;
    private WebDriver driver;
-   private By rootLocator;
-   public ProductCard(WebElement rootElement){
+   public ProductCard(WebDriver driver,WebElement rootElement){
        this.rootElement =rootElement;
-   }
-   public ProductCard(WebDriver driver,By rootLocator){
-       this.driver=driver;
-       this.rootLocator = rootLocator;
+       this.driver = driver;
    }
    private By productName =By.xpath(".//div[contains(@data-testid,'book-title')]");
    private By productImage = By.xpath(".//div[contains(@data-testid,'product-image')]/img");
@@ -27,6 +24,10 @@ public class ProductCard {
    private By wishlistIcon = By.xpath(".//div[contains(@data-testid,'wishlist-icon')]");
    private By addToCartIcon = By.xpath(".//div[contains(@data-testid,'add-to-cart')]");
    private By viewDetailButton = By.xpath(".//div[contains(@data-testid,'view-detail-button')]");
+   private void hoverOnCard(){
+       Actions actions = new Actions(driver);
+       actions.moveToElement(rootElement).perform();
+   }
 
    public String getName(){
        return rootElement.findElement(productName).getText().trim();
@@ -65,12 +66,15 @@ public class ProductCard {
        }
    }
    public void clickAddToCartIcon(){
+       hoverOnCard();
        rootElement.findElement(addToCartIcon).click();
    }
    public void clickWishlistIcon(){
+       hoverOnCard();
        rootElement.findElement(wishlistIcon).click();
    }
    public void clickViewDetailsButton(){
+       hoverOnCard();
        rootElement.findElement(viewDetailButton).click();
    }
    @Override
