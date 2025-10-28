@@ -85,4 +85,5 @@ public class ProductListingSection {
     public void clickOnRightArrow(String sectionTitle){
         getRightArrow(sectionTitle).click();
     }
+
 }
