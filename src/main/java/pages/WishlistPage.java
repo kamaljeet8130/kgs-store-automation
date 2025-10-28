@@ -19,17 +19,19 @@ public class WishlistPage {
         this.driver = driver;
         this.wait = new WebDriverWait(driver,Duration.ofSeconds(10));
     }
-    private By wishlistTitle = By.xpath("//h2[contains(text(),'My Wishlist')]");
-    private By wishlistProductCard = By.xpath("//div[@data-testid='product-card']");
-    private By emptyWishlistImage = By.xpath("//div/img[contains(@alt,'wishlist')]");
-    private By emptyWishlistMessage = By.xpath("//div/h2[contains(text(),'No Favorites')]");
-    private By emptyWishlistText = By.xpath("//div/p[contains(., 'nothing on your list yet')]");
+    private final By wishlistTitle = By.xpath("//h2[contains(text(),'My Wishlist')]");
+    private final By wishlistProductCard = By.xpath("//div[@data-testid='product-card']");
+    private final By emptyWishlistImage = By.xpath("//div/img[contains(@alt,'wishlist')]");
+    private final By emptyWishlistMessage = By.xpath("//div/h2[contains(text(),'No Favorites')]");
+    private final By emptyWishlistText = By.xpath("//div/p[contains(., 'nothing on your list yet')]");
 
     public boolean isWishlistPageDisplayed(){
         return wait.until(ExpectedConditions.visibilityOfElementLocated(wishlistTitle)).isDisplayed();
     }
     public boolean isEmptyWishlistVisible(){
-        return  driver.findElement(emptyWishlistImage).isDisplayed() && driver.findElement(emptyWishlistText).isDisplayed();
+        return  driver.findElement(emptyWishlistImage).isDisplayed() &&
+                driver.findElement(emptyWishlistText).isDisplayed() &&
+                driver.findElement(emptyWishlistMessage).isDisplayed();
     }
     public List<ProductCard> getAllWishlistProductCard(){
         List<WebElement> productElements = driver.findElements(wishlistProductCard);
