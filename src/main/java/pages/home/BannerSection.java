@@ -44,14 +44,23 @@ public class BannerSection {
         driver.findElements(paginationBullets).get(index).click();
     }
     public boolean areAllBannerImageDisplayed(){
+//        wait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(bannerSlides));
+//        return driver.findElements(bannerImages).stream().allMatch(WebElement::isDisplayed);
         wait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(bannerSlides));
-        return driver.findElements(bannerImages).stream().allMatch(WebElement::isDisplayed);
+        List<WebElement> images = driver.findElements(bannerImages);
+        for(int i =0;i<images.size();i++){
+            System.out.println("Banner Images : " + i + " dispalyed : " + images.get(i).isDisplayed());
+            clickRightBannerArrowSlider();
+        }
+        boolean allDisplayed = images.stream().allMatch(WebElement::isDisplayed);
+        System.out.println("All Banner Images displayed : " + allDisplayed);
+        return allDisplayed;
     }
     public List<String> getAllBannerImageSrc(){
         wait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(bannerImages));
         List<String> imageSrc = new ArrayList<>();
         for(WebElement element:driver.findElements(bannerImages)){
-            imageSrc.add(element.getAttribute("href"));
+            imageSrc.add(element.getAttribute("src"));
         }
         return imageSrc;
     }
@@ -73,7 +82,7 @@ public class BannerSection {
         driver.findElements(bannerLinks).get(index).click();
     }
     public void clickRightBannerArrowSlider(){
-        driver.findElement(rightBannerArrowSlider).click();
+        wait.until(ExpectedConditions.elementToBeClickable(rightBannerArrowSlider)).click();
     }
     public void clickLeftBannerArrowSlider(){
         driver.findElement(leftBannerArrowSlider).click();
