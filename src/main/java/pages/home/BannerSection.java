@@ -43,17 +43,19 @@ public class BannerSection {
     public void clickBulletByIndex(int index){
         driver.findElements(paginationBullets).get(index).click();
     }
-    public boolean areAllBannerImageDisplayed(){
-//        wait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(bannerSlides));
-//        return driver.findElements(bannerImages).stream().allMatch(WebElement::isDisplayed);
+    public boolean areAllBannerImageDisplayed()  {
         wait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(bannerSlides));
-        List<WebElement> images = driver.findElements(bannerImages);
-        for(int i =0;i<images.size();i++){
-            System.out.println("Banner Images : " + i + " dispalyed : " + images.get(i).isDisplayed());
+        int totalBanner = driver.findElements(bannerImages).size();
+        boolean allDisplayed = true;
+        for(int i =0;i<totalBanner;i++){
+            List<WebElement> images = driver.findElements(bannerImages);
+            if(!images.get(i).isDisplayed()){
+                allDisplayed=false;
+                break;
+            }
             clickRightBannerArrowSlider();
+            wait.until(ExpectedConditions.visibilityOf(driver.findElements(activeBanner).get(i)));
         }
-        boolean allDisplayed = images.stream().allMatch(WebElement::isDisplayed);
-        System.out.println("All Banner Images displayed : " + allDisplayed);
         return allDisplayed;
     }
     public List<String> getAllBannerImageSrc(){
@@ -65,10 +67,12 @@ public class BannerSection {
         return imageSrc;
     }
     public List<String> getAllBannerRedirectUrls(){
-        wait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(bannerImageLink));
+        wait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(bannerSlides));
         List<String> bannerImageLinks = new ArrayList<>();
         for(WebElement element: driver.findElements(bannerImageLink)){
+            wait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(bannerImageLink));
             bannerImageLinks.add(element.getAttribute("href"));
+            clickRightBannerArrowSlider();
         }
         return bannerImageLinks;
     }
