@@ -19,14 +19,13 @@ public class BannerSection {
     private final By bannerImages = By.xpath("//div[@data-testid='banner-slider']//img[@alt='banner-image']");
     private final By bannerImageLink = By.xpath("//div[@data-testid='banner-slider']//a[img[@alt='banner-image']]");
     private final By bannerLinks = By.xpath("//div[contains(@class,'swiper-slide')]//a");
-    private final By paginationBullets = By.xpath("//div[contains(@class,'swiper-pagination')]//span");
+    private final By paginationDots = By.xpath("//div[contains(@class,'swiper-pagination')]//span");
     private final By rightBannerArrowSlider = By.xpath("(//div[@data-testid='banner-slider']//*[name()='svg'])[1]");
     private final By leftBannerArrowSlider = By.xpath("(//div[@data-testid='banner-slider']//*[name()='svg'])[2]");
     public BannerSection(WebDriver driver){
         this.driver = driver;
         this.wait = new WebDriverWait(driver,Duration.ofSeconds(10));
     }
-
     public int getBannerCount() {
         wait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(bannerSlides));
         return driver.findElements(bannerSlides).size();
@@ -37,11 +36,17 @@ public class BannerSection {
     public void clickBannerByIndex(int index){
         driver.findElements(bannerSlides).get(index).click();
     }
-    public int getBulletCount(){
-        return driver.findElements(paginationBullets).size();
+    public int getPaginationDotsCount(){
+        wait.until(ExpectedConditions.visibilityOfElementLocated(paginationDots));
+        return driver.findElements(paginationDots).size();
     }
-    public void clickBulletByIndex(int index){
-        driver.findElements(paginationBullets).get(index).click();
+    public boolean arePaginationDotsVisible(){
+        wait.until(ExpectedConditions.visibilityOfElementLocated(paginationDots));
+        return driver.findElement(paginationDots).isDisplayed();
+    }
+    public void clickPaginationDotByIndex(int index){
+        wait.until(ExpectedConditions.visibilityOfElementLocated(activeBanner));
+        driver.findElements(paginationDots).get(index).click();
     }
     public boolean areAllBannerImageDisplayed()  {
         wait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(bannerSlides));
@@ -93,7 +98,11 @@ public class BannerSection {
     }
     public int getActiveBannerIndex(){
         for (int i =0;i<getBannerCount();i++){
-            if(driver.findElements(bannerSlides).get(i).getAttribute("class").contains("swiper-slide-active")){
+            boolean isBannerActive = driver.findElements(bannerSlides)
+                    .get(i)
+                    .getAttribute("class")
+                    .contains("swiper-slide-active");
+            if(isBannerActive){
                 return i;
             }
         }
@@ -104,5 +113,11 @@ public class BannerSection {
     }
     public boolean areAllBannerLinksPresent(){
         return driver.findElements(bannerLinks).stream().allMatch(e->e.getAttribute("href")!=null);
+    }
+    public List<WebElement> getBannerSlides(){
+        return driver.findElements(bannerSlides);
+    }
+    public WebElement getActiveBanner(){
+        return driver.findElement(activeBanner);
     }
 }
