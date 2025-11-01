@@ -34,6 +34,7 @@ public class BannerSection {
         return  driver.findElement(activeBanner).isDisplayed();
     }
     public void clickBannerByIndex(int index){
+        wait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(activeBanner));
         driver.findElements(bannerSlides).get(index).click();
     }
     public int getPaginationDotsCount(){
@@ -73,13 +74,13 @@ public class BannerSection {
     }
     public List<String> getAllBannerRedirectUrls(){
         wait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(bannerSlides));
-        List<String> bannerImageLinks = new ArrayList<>();
+        List<String> bannerUrl = new ArrayList<>();
         for(WebElement element: driver.findElements(bannerImageLink)){
             wait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(bannerImageLink));
-            bannerImageLinks.add(element.getAttribute("href"));
+            bannerUrl.add(element.getAttribute("href"));
             clickRightBannerArrowSlider();
         }
-        return bannerImageLinks;
+        return bannerUrl;
     }
     public String getBannerImageSrcByIndex(int index){
         return driver.findElements(bannerImages).get(index).getAttribute("src");
@@ -90,8 +91,8 @@ public class BannerSection {
     public void clickBannerLinkByIndex(int index){
         driver.findElements(bannerLinks).get(index).click();
     }
-    public void clickRightBannerArrowSlider(){
-        wait.until(ExpectedConditions.elementToBeClickable(rightBannerArrowSlider)).click();
+    public void  clickRightBannerArrowSlider(){
+        driver.findElement(rightBannerArrowSlider).click();
     }
     public void clickLeftBannerArrowSlider(){
         driver.findElement(leftBannerArrowSlider).click();
@@ -119,5 +120,20 @@ public class BannerSection {
     }
     public WebElement getActiveBanner(){
         return driver.findElement(activeBanner);
+    }
+    public void clickBannerByUrl(String expectedUrl) {
+        List<WebElement> banners = driver.findElements(bannerSlides);
+        for (WebElement banner : banners) {
+            String actualUrl = banner.findElement(bannerImageLink).getAttribute("href");
+            if (actualUrl.contains(expectedUrl)) {
+                banner.click();
+                return;
+            }
+        }
+        throw new RuntimeException("No banner found with URL: " + expectedUrl);
+    }
+    public void clickActiveBanner() {
+        WebElement active = wait.until(ExpectedConditions.elementToBeClickable(activeBanner));
+        active.click();
     }
 }
