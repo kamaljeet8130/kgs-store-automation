@@ -7,11 +7,14 @@ import org.testng.Reporter;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import pages.home.BannerSection;
+import pages.home.CategoriesSection;
 import pages.home.HomePage;
+import utils.ScrollUtil;
 
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 public class HomePageTests extends BaseTest {
 
@@ -210,5 +213,13 @@ public class HomePageTests extends BaseTest {
         actualUrl.forEach(url->Reporter.log(url,true));
         Assert.assertEquals(actualUrl,expectedUrl,"Some banner redirects do not match expected Urls  ");
         Reporter.log("✅  All Url are Navigating as expected!", true);
+    }
+
+    @Test(description = "Verify Browse By Category section is visible")
+    public void verifyBrowseByCategoryIsVisible(){
+        HomePage home = new HomePage(driver);
+        CategoriesSection categoriesSection = home.getCategoriesSection();
+
+
     }
 }
