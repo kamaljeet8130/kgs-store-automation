@@ -32,6 +32,32 @@ public class CategoriesSection {
     private By categoryName = By.xpath("//div[@data-testid='categories-slider']//div[@data-testid='category-card']//p");
     private By categoryCard = By.xpath("//div[@data-testid='category-card']");
     private By categoriesSlider = By.xpath("//div[@data-testid='categories-slider']");
+    private By browseByCategoryHeading = By.xpath("//div[@data-testid='categories-slider']//h1");
+    private By browseByCategorySection  = By.xpath("//div[@data-testid='categories-slider']");
+
+
+    public String getBrowseByCategoryHeadingText(){
+        return driver.findElement(browseByCategoryHeading).getText();
+    }
+    public boolean isBrowseByCategoryHeadingVisible(){
+        return driver.findElement(browseByCategoryHeading).isDisplayed();
+    }
+
+    public boolean isBrowseByCategorySectionVisible(){
+        wait.until(ExpectedConditions.visibilityOfElementLocated(browseByCategorySection));
+        return driver.findElement(browseByCategorySection).isDisplayed();
+    }
+    public boolean areCategoryItemVisible(){
+        List<WebElement> items = driver.findElements(categorySlideItems);
+        if(items.isEmpty()) return false;
+
+        for(WebElement item: items){
+            if(!item.isDisplayed()){
+                return false;
+            }
+        }
+        return true;
+    }
 
     public void scrollToCategorySection(){
         ScrollUtil scrollUtil = new ScrollUtil(driver);
