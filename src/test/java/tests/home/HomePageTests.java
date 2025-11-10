@@ -215,11 +215,23 @@ public class HomePageTests extends BaseTest {
         Reporter.log("✅  All Url are Navigating as expected!", true);
     }
 
-    @Test(description = "Verify Browse By Category section is visible")
-    public void verifyBrowseByCategoryIsVisible(){
+    @Test(description = "verify Browse By Category section is visible")
+    public void verifyBrowseByCategorySectionIsVisible(){
         HomePage home = new HomePage(driver);
-        CategoriesSection categoriesSection = home.getCategoriesSection();
-
+        CategoriesSection category = home.getCategoriesSection();
+        SoftAssert softAssert = new SoftAssert();
+        softAssert.assertTrue(category.isBrowseByCategorySectionVisible(),
+                "Browse By Category main section is not visible");
+        softAssert.assertTrue(category.isBrowseByCategoryHeadingVisible(),
+                "section heading is not visible");
+        softAssert.assertTrue(category.areCategoryItemVisible(),
+                "category items are not visible or not loaded properly");
+        softAssert.assertEquals(category.getBrowseByCategoryHeadingText().trim(),
+                "Browse By Categories",
+                "section heading text mismatch");
+        softAssert.assertAll();
+        Reporter.log("✅ All checks passed — 'Browse By Category' section is fully visible with correct heading and items.",
+                true);
 
     }
 }
