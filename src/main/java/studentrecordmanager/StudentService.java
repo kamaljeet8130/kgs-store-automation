@@ -41,15 +41,24 @@ public class StudentService {
             int age,
             String course
     ) {
-        for(Student student:students){
-            if(student.getId()==studentId){
-                student.setName(name);
-                student.setAge(age);
-                student.setCourse(course);
-                return true;
-            }
+        if(name.isBlank()){
+            return false;
         }
-        return false;
+        if(age<5 || age>100){
+            return false;
+        }
+        if(course.isBlank()){
+            return false;
+        }
+
+       Student student = findStudentById(studentId);
+        if(student==null){
+            return false;
+        }
+        student.setName(name);
+        student.setAge(age);
+        student.setCourse(course);
+        return true;
     }
     public boolean removeStudent(int studentId){
         Iterator<Student> iterator = students.iterator();
