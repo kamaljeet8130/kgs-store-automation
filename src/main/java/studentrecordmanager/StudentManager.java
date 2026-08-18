@@ -96,10 +96,6 @@ public class StudentManager {
                     System.out.println("Enter new Course: ");
                     String newCourse = scanner.nextLine();
 
-                    studentToUpdate.setName(newName);
-                    studentToUpdate.setAge(newAge);
-                    studentToUpdate.setCourse(newCourse);
-
                     boolean update = service.updateStudent(
                             updateId,
                             newName,
