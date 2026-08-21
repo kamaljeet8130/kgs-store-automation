@@ -1,6 +1,7 @@
 package inventoryproductcatalog;
 
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 
 public class InventoryService {
@@ -49,6 +50,16 @@ public class InventoryService {
         product.setPrice(price);
 
         return true;
+    }
+    public void removeProductBelowPrice(double price){
+        Iterator<Map.Entry<Integer,Product>> iterator = products.entrySet().iterator();
+        while (iterator.hasNext()){
+            Map.Entry<Integer,Product> entry = iterator.next();
+            Product product = entry.getValue();
+            if(product.getPrice()<price){
+                iterator.remove();
+            }
+        }
     }
 
 }
